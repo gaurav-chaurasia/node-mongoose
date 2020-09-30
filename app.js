@@ -8,12 +8,10 @@ const connect = mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopolog
 connect.then((db) => {
     console.log('Connected correctly to mongodb!');
 
-    var newDish = Dishes({
+    Dishes.create({
         name: 'chaat',
         description: 'test'
-    });
-
-    newDish.save()
+    })
         .then((dish) => {
             //returns added dish
             console.log(dish);
