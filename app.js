@@ -16,12 +16,26 @@ connect.then((db) => {
             //returns added dish
             console.log(dish);
             
-            return Dishes.find({}).exec();
+            return Dishes.findByIdAndUpdate(dish._id, {
+                $set: { description: 'Updated descri'}, 
+            }, {
+                new: true
+            }).exec();
         })
-        .then((dishes) => {
-            console.log(dishes);
+        .then((dish) => {
+            console.log(dish);
+
+            dish.comments.push({
+                rating: 5,
+                comment: 'woow dish!!!',
+                author: 'GKC'
+            });
 
             // return mongoose.connection.close();
+            return dish.save();
+        })
+        .then((dish) => {
+            console.log(dish);
             return Dishes.remove({});
         })
         .then(() => {
